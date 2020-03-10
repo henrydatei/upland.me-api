@@ -23,6 +23,12 @@ def getDashboard(token):
     req.raise_for_status()
     return req.text
 
+def getMoney(token, account_id):
+    headers={"authorization": "Bearer "+token}
+    req = requests.get('https://multiindex-api.upland.me/accounts/{}'.format(account_id), headers=headers)
+    req.raise_for_status()
+    return req.text
+
 def renewVisa(token):
     headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
     req = requests.post('https://api.upland.me/users/visa', headers=headers)
