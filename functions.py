@@ -68,6 +68,31 @@ def getNearbyPropertiesOnSale(token,north,south,east,west,sort_direction):
     req.raise_for_status()
     return req.text
 
+def getNearbyTreasures(token,north,south,east,west):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    parameters = {"north": north, "south": south, "east": east, "west": west}
+    req = requests.get('https://treasures.upland.me/sends/discovery', headers=headers, params=parameters)
+    req.raise_for_status()
+    return req.text
+
+def getListOfTreasureStates(token):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    req = requests.get('https://treasures.upland.me/treasures', headers=headers)
+    req.raise_for_status()
+    return req.text
+
+def getTreasureHistory(token):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    req = requests.get('https://treasures.upland.me/treasures/history', headers=headers)
+    req.raise_for_status()
+    return req.text
+
+def getTreasureDirectionForProperty(token, prop_id):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    req = requests.get('https://treasures.upland.me/treasures/direction/{}'.format(prop_id), headers=headers)
+    req.raise_for_status()
+    return req.text
+
 def getPropertyInformation(token, prop_id):
     headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
     req = requests.get('https://api.upland.me/properties/{}'.format(prop_id), headers=headers)
