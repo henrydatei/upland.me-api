@@ -128,3 +128,23 @@ def isUnderMaintenance():
     req = requests.get('https://api.upland.me/settings/maintenance')
     req.raise_for_status()
     return req.text
+
+def claimRewardForCompletedCollection(token, collection_id):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    jsondata = {"collection_id": collection_id}
+    req = requests.post('https://api.upland.me/collections-completed/reward', json=jsondata, headers=headers)
+    req.raise_for_status()
+    return req.text
+
+def getInformationAboutPlayer(token, username):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    req = requests.get('https://api.upland.me/profile/{}'.format(username), headers=headers)
+    req.raise_for_status()
+    return req.text
+
+def putPropertyInCollection(token, collection_id, prop_id):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    jsondata = {"collection_id": collection_id, "prop_id": prop_id}
+    req = requests.post('https://api.upland.me/coll-prop', json=jsondata, headers=headers)
+    req.raise_for_status()
+    return req.text
