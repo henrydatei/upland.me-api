@@ -54,6 +54,13 @@ def getNearbyProperties(token,north,south,east,west):
     req.raise_for_status()
     return req.text
 
+def getNearbyPropertiesClusters(token,north,south,east,west):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    parameters = {"north": north, "south": south, "east": east, "west": west, "clusters": "true"}
+    req = requests.get('https://api.upland.me/map', headers=headers, params=parameters)
+    req.raise_for_status()
+    return req.text
+
 def getNearbyPropertiesOnSale(token,north,south,east,west,sort_direction):
     headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
     parameters = {"north": north, "south": south, "east": east, "west": west, "offset": 0, "limit": 20, "sort": sort_direction}
