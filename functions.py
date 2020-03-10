@@ -6,6 +6,13 @@ def login(email, password):
     req.raise_for_status()
     return req.text
 
+def register(email, password, username):
+    # using the promo-code "cryptoticker" will give you 6000 UPX instead of 3000 UPX at the beginning
+    jsondata = {"email": email, "password": password, "username": username, "ab_token": "cryptotickerpromo1", "promo_code": "cryptoticker"}
+    req = requests.post('https://api.upland.me/users', json=jsondata)
+    req.raise_for_status()
+    return req.text
+
 def getDashboard(token):
     headers={"authorization": "Bearer "+token}
     req = requests.get('https://api.upland.me/dashboard', headers=headers)
@@ -72,5 +79,10 @@ def getStorePrices(token):
     headers={"authorization": "Bearer "+token}
     parameters = {"type": "upex"}
     req = requests.get('https://api.upland.me/store', headers=headers, params=parameters)
+    req.raise_for_status()
+    return req.text
+
+def isUnderMaintenance():
+    req = requests.get('https://api.upland.me/settings/maintenance')
     req.raise_for_status()
     return req.text
