@@ -1,6 +1,14 @@
 from functions import *
 import json
 
+# I included Sendgrid to stay informed about new treasures on your property when using a cron job
+# You need an Sendgrid API key, just follow the instructions on https://app.sendgrid.com/guide/integrate/langs/python
+# Dont forget to enter your email in line 39 (to_emails='XXXXXX@XXXXXXX.XXXX')
+# Remove the following 3 lines if you don't want to use Sendgrid
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 accounts = ["email1:pass1", "email2:pass2"]
 
 # downloasd all treasures
@@ -26,3 +34,14 @@ for account in accounts:
     for i in treasures:
         if i['prop_id'] in props:
             print(i['prop_id'])
+
+            # Remove the following 9 lines of you don't want to use Sendgrid
+            message = Mail(from_email='upland@upland.me', to_emails='XXXXXX@XXXXXXX.XXXX', subject='Found Treasure on Property', html_content="Username: " + email + ", prop_id: " + str(i['prop_id']))
+            try:
+                sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                response = sg.send(message)
+                #print(response.status_code)
+                #print(response.body)
+                #print(response.headers)
+            except Exception as e:
+                print(e.message)
