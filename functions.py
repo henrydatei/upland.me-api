@@ -68,7 +68,7 @@ def getNearbyPropertiesOnSale(token,north,south,east,west,sort_direction):
     req.raise_for_status()
     return req.text
 
-def getNearbyTreasures(token,north,south,east,west):
+def getNearbySends(token,north,south,east,west):
     headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
     parameters = {"north": north, "south": south, "east": east, "west": west}
     req = requests.get('https://treasures.upland.me/sends/discovery', headers=headers, params=parameters)
