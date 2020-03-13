@@ -15,7 +15,7 @@ accounts = ["email1:pass1", "email2:pass2"]
 email = accounts[0].split(":")[0]
 password = accounts[0].split(":")[1]
 token = json.loads(login(email, password))['accessToken']
-treasures = json.loads(getNearbyTreasures(token, 37.80857842412992, 37.70490690979908, -122.38437277555661, -122.50744106601444)) # complete SF
+treasures = json.loads(getNearbySends(token, 37.80857842412992, 37.70490690979908, -122.38437277555661, -122.50744106601444)) # complete SF
 
 for account in accounts:
     props = []
