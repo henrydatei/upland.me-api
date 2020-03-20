@@ -148,3 +148,16 @@ def putPropertyInCollection(token, collection_id, prop_id):
     req = requests.post('https://api.upland.me/coll-prop', json=jsondata, headers=headers)
     req.raise_for_status()
     return req.text
+
+def collectSendTreasure(token, send_id):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    parameters = {"id": send_id}
+    req = requests.post('https://treasures.upland.me/sends/collect', headers=headers, params=parameters)
+    req.raise_for_status()
+    return req.text
+
+def getPropertiesInRange(token):
+    headers={"authorization": "Bearer "+token, 'User-Agent': userAgent}
+    req = requests.get('https://api.upland.me/properties/tail/props', headers=headers)
+    req.raise_for_status()
+    return req.text
